@@ -3,14 +3,17 @@ package com.example.weather;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     TextView coutry_yt,city_yt,temp_yt ,time;
 
     TextView lat_t, long_t , hum_t , pre_t , win_t ;
+
+    Switch e;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +48,23 @@ public class MainActivity extends AppCompatActivity {
         city_yt=findViewById(R.id.textView4);
         temp_yt=findViewById(R.id.textView5);
         time=findViewById(R.id.textView2);
-
         lat_t=findViewById(R.id.textView9);
         long_t=findViewById(R.id.textView7);
         hum_t=findViewById(R.id.textView11);
         pre_t=findViewById(R.id.textView13);
         win_t=findViewById(R.id.textView15);
 
+        e.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,10 +138,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
         RequestQueue requestQueue= Volley.newRequestQueue(MainActivity.this);
         requestQueue.add(stringRequest);
-
-
 
     }
 }
